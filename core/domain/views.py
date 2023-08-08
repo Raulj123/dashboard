@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-def test(request):
+def dashboard_view(request):
     context = {
         'msg': 'test',
     }
