@@ -1,0 +1,54 @@
+{% extends 'domain/index.html' %} 
+{% block title %}Overview{% endblock %} 
+{% block content %}
+<div class="row">
+  <div class="col-sm">
+    <div class="title">
+    <h3>Recent Payments</h3>
+    <a href="{% url 'domain:income' %}">Add Payment <span data-feather="plus-circle"></span></a>
+    </div>
+    <table class="table mt-3">
+      <thead>
+        <tr>
+          <th scope="col">Amount</th>
+          <th scope="col">Date</th>
+          <th scope="col">description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>$40.00</td>
+          <td>08/02/23</td>
+          <td>Gas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm">
+    <div class="title">
+    <h3>Current Expenses</h3>
+    <a href="{% url 'domain:income' %}">Add Expense <span data-feather="plus-circle"></span></a>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card mt-4" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">$100.00</h5>
+            <p class="card-text">Wifi</p>
+            <a href="#" class="btn btn-sm btn-primary">edit</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mt-3" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">$15.00</h5>
+            <p class="card-text">Gym</p>
+            <a href="#" class="btn btn-sm btn-primary">edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

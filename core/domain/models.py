@@ -6,6 +6,8 @@ class User(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     username = models.CharField(max_length=200, null=False, unique=True)
+    occupation = models.CharField(max_length=200, default='unkown')
+    bio = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.username
