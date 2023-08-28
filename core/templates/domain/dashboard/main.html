@@ -1,11 +1,20 @@
 {% extends 'domain/index.html' %} 
-{% block title %}Overview{% endblock %} 
+
+{% block title %} 
+  {% if user.is_authenticated %} 
+    Hi {{ user.username }}! 
+  {% endif %} 
+{% endblock %} 
+
 {% block content %}
+
 <div class="row">
   <div class="col-sm">
     <div class="title">
-    <h3>Recent Payments</h3>
-    <a href="{% url 'domain:income' %}">Add Payment <span data-feather="plus-circle"></span></a>
+      <h3>Recent Payments</h3>
+      <a href="{% url 'domain:income' %}"
+        >Add Payment <span data-feather="plus-circle"></span
+      ></a>
     </div>
     <table class="table mt-3">
       <thead>
@@ -26,23 +35,33 @@
   </div>
   <div class="col-sm">
     <div class="title">
-    <h3>Current Expenses</h3>
-    <a href="{% url 'domain:income' %}">Add Expense <span data-feather="plus-circle"></span></a>
+      <h3>Current Expenses</h3>
+      <a href="{% url 'domain:expense' %}"
+        >Add Expense <span data-feather="plus-circle"></span
+      ></a>
     </div>
     <div class="row">
-      <div class="col">
-        <div class="card mt-4" style="width: 18rem;">
+      <div class="col-sm-12 col-md-12">
+        <div class="card mt-4" style="width: 15rem">
           <div class="card-body">
-            <h5 class="card-title">$100.00</h5>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">$100.00</h5>
+              <span class="green" data-feather="check"></span>
+              <span class="orange" data-feather="clock"></span>
+            </div>
             <p class="card-text">Wifi</p>
             <a href="#" class="btn btn-sm btn-primary">edit</a>
           </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card mt-3" style="width: 18rem;">
+      <div class="col-sm-12 col-md-12">
+        <div class="card mt-4" style="width: 15rem">
           <div class="card-body">
-            <h5 class="card-title">$15.00</h5>
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">$100.00</h5>
+              <span class="green" data-feather="check"></span>
+              <span class="orange" data-feather="clock"></span>
+            </div>
             <p class="card-text">Gym</p>
             <a href="#" class="btn btn-sm btn-primary">edit</a>
           </div>
@@ -51,4 +70,6 @@
     </div>
   </div>
 </div>
+{{user_profile.bio}} 
+
 {% endblock %}

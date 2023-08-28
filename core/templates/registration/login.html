@@ -1,0 +1,92 @@
+{% extends 'domain/index.html' %} 
+
+{% block title %}
+    <p class="header_color mt-2">Welcome, Create your account!</p>
+{% endblock %} 
+
+{% block content %}
+
+<h6 class="mb-4 text_color">Fill out info and save some 💰</h6>
+<div class="col-sm-12 col-md-8 col-lg-9">
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      <label
+        class="fw-bold text_color mb-2 me-2"
+        for="{{ user_form.username.id_for_label }}"
+        >Username</label
+      >
+      <span class="me-2" data-feather="user"></span>
+      {{ user_form.username }}
+    </div>
+
+    <div class="mb-3">
+      <label
+        class="fw-bold text_color mb-2 me-2"
+        for="{{ user_form.email.id_for_label }}"
+        >Email</label
+      >
+      <span class="me-2" data-feather="mail"></span>
+      {{ user_form.email }}
+    </div>
+
+    <div class="mb-4">
+      <label
+        class="fw-bold text_color mb-2 me-2"
+        for="{{ user_form.password1.id_for_label }}"
+        >Password</label
+      >
+      <span class="me-2" data-feather="key"></span>
+      <input
+        type="password"
+        name="password1"
+        class="form-control form-control-sm"
+      />
+      <div class="mt-2 text-muted">
+        <p>
+          Your password can’t be too similar to your other personal information.
+        </p>
+        <p>Your password must contain at least 8 characters.</p>
+        <p>Your password can’t be a commonly used password.</p>
+        <p>Your password can’t be entirely numeric.</p>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label
+        class="fw-bold text_color mb-2 me-2"
+        for="{{ user_form.password2.id_for_label }}"
+        >Password Confirmation</label
+      >
+      <span class="me-2" data-feather="check"></span>
+      <input
+        type="password"
+        name="password2"
+        class="form-control form-control-sm"
+      />
+    </div>
+    {% if user_form.username.errors %}
+    <ul class="text-danger">
+      {% for error in user_form.username.errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <button class="btn btn-primary btn-sm me-2 mb-4" type="submit">
+      Register
+    </button>
+    <a class="btn btn-warning btn-sm mb-4" href="{% url 'domain:sign_in' %}"
+      >Sign In</a
+    >
+  </form>
+</div>
+
+{% if messages %} 
+    {% for message in messages %} 
+        {{message}} 
+    {% endfor %} 
+{% endif %} 
+
+{% endblock %}

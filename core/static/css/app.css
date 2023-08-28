@@ -17,7 +17,6 @@ body {
   }
 }
 
-
 .feather {
   width: 16px;
   height: 16px;
@@ -127,14 +126,21 @@ right: 0;
   align-items: center;
 }
 .title h3 {
-  color: #1C2B33;
+  color: #1c2b33;
   font-weight: 600;
 }
-.title a{
+.title a {
   text-decoration: none;
-  color: #1C2B33;
+  color: #1c2b33;
 }
-.title a:hover{
+.title a:hover {
   color: #2470dc;
   transform: scale(1.1);
+}
+
+.header_color {
+  color: #29539b;
+}
+.text_color {
+  color: #1e3b70;
 }

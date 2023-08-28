@@ -1,0 +1,48 @@
+{% extends 'domain/index.html' %} 
+
+{% block title %}
+    <p class="header_color mt-2">Sign In!</p>
+{% endblock %} 
+
+{% block content %}
+
+<div class="col-sm-12 col-md-8 col-lg-9">
+  <form method="POST" action="{% url 'domain:sign_in' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label
+        class="fw-bold text_color mb-2 me-2"
+        for="{{ signin_form.username.id_for_label }}"
+        >Username</label
+      >
+      <span class="me-2" data-feather="user"></span>
+      <input type="text" name="username" class="form-control form-control-sm" />
+    </div>
+    <div class="mb-3">
+      <label
+        class="fw-bold text_color mb-2 me-2"
+        for="{{ signin_form.password.id_for_label }}"
+        >Password</label
+      >
+      <span class="me-2" data-feather="key"></span>
+      <input
+        type="password"
+        name="password"
+        class="form-control form-control-sm"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm me-2">Sign In</button>
+    <a
+      class="btn btn-warning btn-sm"
+      href="{% url 'domain:user_registration' %}"
+      >Register</a
+    >
+  </form>
+</div>
+{% if messages %} 
+    {% for message in messages %} 
+        {{message}} 
+    {% endfor %} 
+{% endif %} 
+
+{% endblock %}
