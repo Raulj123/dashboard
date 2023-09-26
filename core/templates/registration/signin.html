@@ -1,48 +1,114 @@
-{% extends 'domain/index.html' %} 
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <title>Budget Buddy</title>
+    <style>
+      body{
+        color: #202124;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="form-signin w-100 m-auto mt-5">
+      <form method="post" action="{% url 'domain:sign_in' %}">
+        {% csrf_token %}
 
-{% block title %}
-    <p class="header_color mt-2">Sign In!</p>
-{% endblock %} 
+        <img
+          class="mb-4 logo_img"
+          src="{% static 'images/logo.png' %}"
+          alt=""
+          width="82"
+          height="67"
+        />
+        <h1 class="h3 mb-3 fw-normal header_color text-center">
+          Sign In
+        </h1>
 
-{% block content %}
+        <div class="form-floating mb-1">
+          <input type="text" name="username" class="form-control form-control-sm" />
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating mb-1">
+          <input
+          type="password"
+          name="password"
+          class="form-control form-control-sm"
+        />
+          <label for="floatingPassword mb-1">Password</label>
+        </div>
+        
 
-<div class="col-sm-12 col-md-8 col-lg-9">
-  <form method="POST" action="{% url 'domain:sign_in' %}">
-    {% csrf_token %}
-    <div class="mb-3">
-      <label
-        class="fw-bold text_color mb-2 me-2"
-        for="{{ signin_form.username.id_for_label }}"
-        >Username</label
-      >
-      <span class="me-2" data-feather="user"></span>
-      <input type="text" name="username" class="form-control form-control-sm" />
+        <button type="submit" class="btn btn-primary me-1">Sign In</button>
+        <a
+          class="btn btn-warning me-1"
+          href="{% url 'domain:user_registration' %}"
+          >Register</a
+        >
+        <a class="btn btn-warning me-1" href="{% url 'domain:sign_in' %}"
+          >View demo</a
+        >
+        <p class="mt-5 mb-3 text-center text-body-secondary">
+          &copy; 2023–2023
+        </p>
+      </form>
+    </main>
+    {% if messages %}
+    <div class="modal" tabindex="-1" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title header_color">Oops! 😕</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            {% for message in messages %}
+            <p class="text_color">{{message}}</p>
+            {% endfor %}
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label
-        class="fw-bold text_color mb-2 me-2"
-        for="{{ signin_form.password.id_for_label }}"
-        >Password</label
-      >
-      <span class="me-2" data-feather="key"></span>
-      <input
-        type="password"
-        name="password"
-        class="form-control form-control-sm"
-      />
-    </div>
-    <button type="submit" class="btn btn-primary btn-sm me-2">Sign In</button>
-    <a
-      class="btn btn-warning btn-sm"
-      href="{% url 'domain:user_registration' %}"
-      >Register</a
-    >
-  </form>
-</div>
-{% if messages %} 
-    {% for message in messages %} 
-        {{message}} 
-    {% endfor %} 
-{% endif %} 
+    {% endif %}
+  </body>
+</html>
+<script>
+$(document).ready(function(){
+  {% if messages %}
+    $('#myModal').modal('show');
+  {% endif %}
 
-{% endblock %}
+  $('.modal-header .close').click(function() {
+    $('#myModal').modal('hide');
+  });
+});
+</script>

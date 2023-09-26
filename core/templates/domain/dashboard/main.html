@@ -2,74 +2,147 @@
 
 {% block title %} 
   {% if user.is_authenticated %} 
-    Hi {{ user.username }}! 
+    <p class="header_color">Hi {{ user.username }}! 👋</p>
   {% endif %} 
 {% endblock %} 
 
 {% block content %}
 
 <div class="row">
-  <div class="col-sm">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="title">
-      <h3>Recent Payments</h3>
+      <h3 class="header_color">Recent Payments</h3>
       <a href="{% url 'domain:income' %}"
         >Add Payment <span data-feather="plus-circle"></span
       ></a>
     </div>
-    <table class="table mt-3">
+    {% if payments %}
+    <table class="table table-striped mt-3">
       <thead>
         <tr>
-          <th scope="col">Amount</th>
-          <th scope="col">Date</th>
-          <th scope="col">description</th>
+          <th scope="col" style="color: #1e3b70;">Amount</th>
+          <th scope="col" style="color: #1e3b70;">Date</th>
+          <th scope="col" style="color: #1e3b70;">description</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>$40.00</td>
-          <td>08/02/23</td>
-          <td>Gas</td>
-        </tr>
+        {% for payment in page_object %}
+          <tr>
+            <td>${{payment.amount}}</td>
+            <td>{{payment.date}}</td>
+            <td>{{payment.description}}</td>
+          </tr>
+        {% endfor %}
       </tbody>
     </table>
+    <div class="pagination">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ page_object.previous_page_number }}">previous</a>
+          {% endif %}
+  
+          <span class="current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+  
+          {% if page_obj.has_next %}
+              <a href="?page={{ page_obect.next_page_number }}">next</a>
+              <a href="?page={{ page_object.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+    {% else %}
+      <h5 class="text_color mt-5">No Payments Found 💰 Add Your First Payment Now</h5>
+    {% endif %}
+    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
   </div>
   <div class="col-sm">
     <div class="title">
-      <h3>Current Expenses</h3>
-      <a href="{% url 'domain:expense' %}"
+      <h3 class="header_color">Current Expenses</h3>
+      <a href=""
         >Add Expense <span data-feather="plus-circle"></span
       ></a>
     </div>
-    <div class="row">
-      <div class="col-sm-12 col-md-12">
-        <div class="card mt-4" style="width: 15rem">
+  {% if expenses %}
+    {% for expense in expenses %}
+   
+      <div class="col-sm-12 col-md-6 col-lg-6">
+        <div class="card mt-4" style="width: 25rem">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title">$100.00</h5>
-              <span class="green" data-feather="check"></span>
+              <h5 class="card-title">${{expense.amount}}</h5>
+              {% if expense.paid %}
+              <span class="green fs-2" data-feather="check"></span>
+              {% else %}
               <span class="orange" data-feather="clock"></span>
+              {% endif %}
             </div>
-            <p class="card-text">Wifi</p>
+            <div class="d-flex flex-row mt-2">
+              <p class="card-text text_color me-2 fw-bold">Description: </p>
+              <p class="text-mute">{{expense.description}}</p>
+            </div>
+            <div class="d-flex flex-row">
+            <p class="card-text text_color me-2 fw-bold">Payment Frequency: </p>
+            <p class="">{{expense.payment_interval}}</p>
+            </div>
             <a href="#" class="btn btn-sm btn-primary">edit</a>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-12">
-        <div class="card mt-4" style="width: 15rem">
-          <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-              <h5 class="card-title">$100.00</h5>
-              <span class="green" data-feather="check"></span>
-              <span class="orange" data-feather="clock"></span>
-            </div>
-            <p class="card-text">Gym</p>
-            <a href="#" class="btn btn-sm btn-primary">edit</a>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    {% endfor %}
+    {% else %}
+      <h5 class="text_color mt-5">No Expense 💰 Add Your First Now</h5>
+    {% endif %}
   </div>
 </div>
-{{user_profile.bio}} 
+ 
+ <script>
+  var xValues = [];
+  {% if payments %}
+  {% for payment in payments %}
+  label = "{{payment.description}}";
+  if (label.length > 15) {
+    label = label.substring(0,15) + "...";
+  }
+  xValues.push(label)
+  {% endfor %}
+ 
+  var yValues = [];
+  {% for payment in payments %}
+  yValues.push("{{payment.amount}}")
+  {% endfor %}
+  {% endif %}
 
+  var barColors = [
+    "#b91d47",
+    "#00aba9",
+    "#2b5797",
+    "#e8c3b9",
+    "#1e7145",
+    "#ff5733",
+    "#59325e",
+    "#008c7d",
+  ];
+  
+  new Chart("myChart", {
+    type: "doughnut",
+    data: {
+      labels: xValues,
+      datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "Payment Breakdown",
+        fontSize: 18,
+        fontColor: "#29539b",
+      }
+    }
+  });
+  </script>
 {% endblock %}
