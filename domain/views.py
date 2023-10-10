@@ -71,7 +71,8 @@ def dashboard_view(request):
     user_profile = UserProfile.objects.get(user=request.user)
     payments = UserPayments.objects.filter(user=request.user)
     expense = UserExpense.objects.filter(user=request.user)
-    paginator = Paginator(payments, 5)
+    
+    paginator = Paginator(payments, 10)
     page_num = request.GET.get("payment_table")
     page_obj = paginator.get_page(page_num)
     if request.method == "POST":

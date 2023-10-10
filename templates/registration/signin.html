@@ -19,8 +19,13 @@
     />
     <title>Budget Buddy</title>
     <style>
-      body{
-        color: #202124;
+      body {
+        background: rgb(238, 174, 202);
+        background: radial-gradient(
+          circle,
+          rgba(238, 174, 202, 1) 0%,
+          rgba(148, 187, 233, 1) 100%
+        );
       }
     </style>
   </head>
@@ -36,23 +41,24 @@
           width="82"
           height="67"
         />
-        <h1 class="h3 mb-3 fw-normal header_color text-center">
-          Sign In
-        </h1>
+        <h1 class="h3 mb-3 fw-normal header_color text-center">Sign In</h1>
 
         <div class="form-floating mb-1">
-          <input type="text" name="username" class="form-control form-control-sm" />
+          <input
+            type="text"
+            name="username"
+            class="form-control form-control-sm"
+          />
           <label for="floatingInput">Username</label>
         </div>
-        <div class="form-floating mb-1">
+        <div class="form-floating mb-2">
           <input
-          type="password"
-          name="password"
-          class="form-control form-control-sm"
-        />
-          <label for="floatingPassword mb-1">Password</label>
+            type="password"
+            name="password"
+            class="form-control form-control-sm"
+          />
+          <label for="floatingPassword mb-2">Password</label>
         </div>
-        
 
         <button type="submit" class="btn btn-primary me-1">Sign In</button>
         <a
@@ -102,13 +108,13 @@
   </body>
 </html>
 <script>
-$(document).ready(function(){
-  {% if messages %}
-    $('#myModal').modal('show');
-  {% endif %}
+  $(document).ready(function(){
+    {% if messages %}
+      $('#myModal').modal('show');
+    {% endif %}
 
-  $('.modal-header .close').click(function() {
-    $('#myModal').modal('hide');
+    $('.modal-header .close').click(function() {
+      $('#myModal').modal('hide');
+    });
   });
-});
 </script>

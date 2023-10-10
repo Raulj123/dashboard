@@ -19,8 +19,13 @@
     />
     <title>Budget Buddy</title>
     <style>
-      body{
-        color: #202124;
+      body {
+        background: rgb(238, 174, 202);
+        background: radial-gradient(
+          circle,
+          rgba(238, 174, 202, 1) 0%,
+          rgba(148, 187, 233, 1) 100%
+        );
       }
     </style>
   </head>
@@ -40,21 +45,21 @@
           📝 Create Account
         </h1>
 
-        <div class="form-floating mb-1">
+        <div class="form-floating mb-2">
           {{ user_form.username }}
           <label for="floatingInput">Username</label>
         </div>
-        <div class="form-floating mb-1">
+        <div class="form-floating mb-2">
           {{ user_form.email }}
           <label for="floatingInput">Email</label>
         </div>
-        <div class="form-floating mb-1">
+        <div class="form-floating mb-2">
           <input
             type="password"
             name="password1"
             class="form-control form-control-sm"
           />
-          <label for="floatingPassword mb-1">Password</label>
+          <label for="floatingPassword">Password</label>
         </div>
         <div class="form-floating">
           <input
@@ -63,7 +68,7 @@
             class="form-control form-control-sm"
           />
           <label for="floatingPassword">Password Confirmation</label>
-          <div class="mt-2 text-muted text_color">
+          <div class="text-muted text_color mt-2">
             <p class="small">
               Your password must contain at least 8 characters.
             </p>
@@ -85,6 +90,7 @@
         </p>
       </form>
     </main>
+
     {% if messages %}
     <div class="modal" tabindex="-1" id="myModal">
       <div class="modal-dialog">

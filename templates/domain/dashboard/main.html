@@ -37,18 +37,18 @@
     </table>
     <div class="pagination">
       <span class="step-links">
-          {% if page_obj.has_previous %}
-              <a href="?page=1">&laquo; first</a>
-              <a href="?page={{ page_object.previous_page_number }}">previous</a>
+          {% if page_object.has_previous %}
+              <a href="?payment_table=1">&laquo; first</a>
+              <a href="?payment_table={{ page_object.previous_page_number }}">previous</a>
           {% endif %}
   
           <span class="current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+              Page {{ page_object.number }} of {{ page_object.paginator.num_pages }}.
           </span>
   
-          {% if page_obj.has_next %}
-              <a href="?page={{ page_obect.next_page_number }}">next</a>
-              <a href="?page={{ page_object.paginator.num_pages }}">last &raquo;</a>
+          {% if page_object.has_next %}
+              <a href="?payment_table={{ page_object.next_page_number }}">next</a>
+              <a href="?payment_table={{ page_object.paginator.num_pages }}">last &raquo;</a>
           {% endif %}
       </span>
   </div>
@@ -103,7 +103,7 @@
   {% if payments %}
   {% for payment in payments %}
   label = "{{payment.description}}";
-  if (label.length > 15) {
+  if (label.length > 10) {
     label = label.substring(0,15) + "...";
   }
   xValues.push(label)
