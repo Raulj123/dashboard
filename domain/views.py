@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from domain.forms import UserForm, SignInForm
+from domain.forms import UserForm, SignInForm, PaymentForm
 from domain.models import UserProfile, UserPayments, UserExpense
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -72,7 +72,7 @@ def dashboard_view(request):
     payments = UserPayments.objects.filter(user=request.user)
     expense = UserExpense.objects.filter(user=request.user)
     
-    paginator = Paginator(payments, 10)
+    paginator = Paginator(payments, 5)
     page_num = request.GET.get("payment_table")
     page_obj = paginator.get_page(page_num)
     if request.method == "POST":
@@ -94,3 +94,29 @@ def income_view(request):
         'msg': "test",
     }
     return render(request, "domain/income/income.html", context)
+
+
+def expense_view(request):
+    """View to handle expense input"""
+    context = {
+        'msg': 'expense',
+    }
+    return render(request, "domain/expense/expense.html")
+
+
+def payment_view(request, id):
+    """View to handle payments"""
+    payment_form = PaymentForm()
+    context = {
+        "payment_form": payment_form,
+    }
+    if request.method == "POST":
+        payment_form = PaymentForm(request.POST)
+        if payment_form.is_valid():
+            payment = payment_form.save(commit=False)
+            payment.user = request.user
+            payment.save()
+            
+        return redirect("domain:home")
+    
+    return render(request, "domain/payment/payment.html", context)

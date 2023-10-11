@@ -1,0 +1,13 @@
+{% extends 'domain/index.html' %}
+{% block title%} Enter your payment {% endblock %}
+{% block content %}
+<h2 class="red">Payment..</h2>
+<div class="col-sm-12 col-md-8 col-lg-8">
+<form method="POST">
+    {% csrf_token %}
+    {{payment_form}}
+    <button type="submit" class="btn btn-warning mt-2">Add</button>
+</form>
+</div>
+
+{% endblock %}
