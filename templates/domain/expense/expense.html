@@ -1,27 +1,22 @@
 {% extends 'domain/index.html' %} 
-
-{% block title %}
-  Add your expense here
-{% endblock %} 
-
+{% block title %} Add your expense here {% endblock %} 
 {% block content %}
 <div class="col-sm-12 col-md-8 col-lg-8">
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="col-sm-8">
-      <h6 class="mb-2">Select User</h6>
-      {{ form.user_id }}
-    </div>
-    <div class="col-sm-8">
-      <h6 class="mb-2 mt-2">Select Amount</h6>
-      {{ form.amount }}
-    </div>
-    <div class="col-sm-8">
-      <h6 class="mb-2 mt-2">Whats it for?</h6>
-      {{ form.description }}
-    </div>
 
-    <button type="submit" class="btn btn-primary btn-sm mt-3">Add</button>
+    <h6 class="mb-2 mt-2">Select Amount</h6>
+    {{ expense_form.amount }}
+    <h6 class="mb-2 mt-2">Whats it for?</h6>
+    {{ expense_form.description }}
+    <h6 class="mb-2 mt-2">Payment Interval</h6>
+    {{expense_form.payment_interval}}
+    <h6 class="mb-2 mt-2">Paid
+      {{expense_form.paid}}
+    </h6>
+    <button type="submit" class="btn btn-primary btn-sm mt-3">
+      Add Expense
+    </button>
   </form>
 </div>
 

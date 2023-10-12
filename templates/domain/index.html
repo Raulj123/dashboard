@@ -71,6 +71,7 @@
 
     <div class="container-fluid">
       <div class="row">
+        {% with request.resolver_match.url_name as url_name %}
         <nav
           id="sidebarMenu"
           class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
@@ -79,7 +80,7 @@
             <ul class="nav flex-column">
               <li class="nav-item">
                 <a
-                  class="nav-link active"
+                  class="nav-link {% if url_name == 'home' %} active {% endif %}"
                   aria-current="page"
                   href="{% url 'domain:home' %}"
                 >
@@ -88,19 +89,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'domain:income' %}">
+                <a class="nav-link {% if url_name == 'income' %} active {% endif %}" href="{% url 'domain:income' %}">
                   <span data-feather="dollar-sign"></span>
                   Add Income
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {% if url_name == 'expense' %} active {% endif %}" href="{% url 'domain:expense' %}">
                   <span data-feather="shopping-bag"></span>
                   Add Expense
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link {% if url_name == 'payment' %} active {% endif %}" href="{% url 'domain:payment' %}">
                   <span data-feather="plus-circle"></span>
                   Enter Payment
                 </a>
@@ -140,6 +141,7 @@
           </div>
           <div class="mt-5">{% block content %} {% endblock %}</div>
         </main>
+        {% endwith %}
       </div>
     </div>
     <script>

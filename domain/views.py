@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from domain.forms import UserForm, SignInForm, PaymentForm
+from domain.forms import UserForm, SignInForm, PaymentForm, ExpenseForm
 from domain.models import UserProfile, UserPayments, UserExpense
 from django.contrib import messages
 from django.contrib.auth import login, logout
@@ -98,13 +98,22 @@ def income_view(request):
 
 def expense_view(request):
     """View to handle expense input"""
+    expense_form = ExpenseForm()
+
     context = {
-        'msg': 'expense',
+        'expense_form': expense_form,
     }
-    return render(request, "domain/expense/expense.html")
+    if request.method == "POST":
+        expense_form = ExpenseForm(request.POST)
+        if expense_form.is_valid():
+            expense = expense_form.save(commit=False)
+            expense.user = request.user
+            expense.save()
+        return redirect("domain:home")
+    return render(request, "domain/expense/expense.html", context)
 
 
-def payment_view(request, id):
+def payment_view(request):
     """View to handle payments"""
     payment_form = PaymentForm()
     context = {
